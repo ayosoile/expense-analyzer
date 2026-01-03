@@ -1,4 +1,4 @@
-Expense Tracker with Anomaly Detection
+Expense Analyzer with Anomaly Detection
 
 A full-stack Flask web application that allows users to record expenses and view them date sorted, analyze spending patterns, detect anonamlies in purchases using machine learning, and export results to CSV.
 
