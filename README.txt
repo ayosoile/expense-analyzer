@@ -51,6 +51,7 @@ Clone the repository
 
 Install dependencies:
 
+cd ./expense-analyzer (Make sure your in the expense analyzer directory)
 pip install -r requirements.txt
 
 
