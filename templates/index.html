@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <!-- Description of Project -->
+    <h1>Expenses Tracker</h1>
+    <p>Rather than manually importing your expenses to a csv, use this expense tracker to write all your expenses at once, along with detecting anomalies in money spent, with the option to download it in csv format as well!(Must have at least 5 expenses and the more the expenses, the more expenses this tool can identify anomalies)</p>
+    <p>The number of anomalies is based on your data. 10% of the data will be seen as anomalies, so 10 expenses or less will have up to 1 anomaly, 11-20 will have up to 2, and so on. Note that number of anomalies may show up as less than expected if there isn't an anomaly in money spent.</p>
+    <h2>Add Expense</h2>
+
+    <!-- Form for adding expense -->
+    <form method="POST" action="/add">
+        <label>Date:</label>
+        <input type="date" name="date" required><br>
+
+        <label>Category:</label>
+        <input type="text" name="category" required><br><br>
+
+        <label>Amount:</label>
+        <input type="number" step="0.01" name="amount" required><br><br>
+        <button type="submit">Add Expense</button>
+    </form>
+
+    <!-- displays expenses and anomalies -->
+    {% if expenses %}
+        <ul>
+            {% for expense in expenses %}
+                <li style="color: {% if expense.is_anomaly %}red{% else %}black{% endif %}">
+                    {{expense.date.strftime("%Y-%m-%d")}} -
+                    {{expense.category}} -
+                    ${{expense.amount}}
+                    {% if expense.is_anomaly %}(ANOMALY){% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No expenses yet.</p>
+    {% endif %}
+
+    <!-- CSV Form -->
+    <form action="/export" method="get">
+        <button type="submit">Download CSV</button>
+    </form>
+
+    <p>Created by Ayo Soile</p>
+</body>
+</html>
